@@ -5,10 +5,14 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "macos-v*"
+      - "windows-v*"
 
 jobs:
   build-macos:
     runs-on: macos-latest
+    if: github.ref_type != 'tag' || startsWith(github.ref_name, 'macos-v')
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,6 +29,7 @@ jobs:
         run: ./build_macos_app.sh --dmg
 
       - name: Upload macOS artifacts
+        if: github.ref_type != 'tag'
         uses: actions/upload-artifact@v4
         with:
           name: MacOS v0.1
@@ -32,8 +37,23 @@ jobs:
             dist/Valorador de Opciones.app
             dist/Valorador de Opciones.dmg
 
+      - name: Archive macOS bundle
+        if: github.ref_type == 'tag' && startsWith(github.ref_name, 'macos-v')
+        run: ditto -c -k --sequesterRsrc --keepParent "dist/Valorador de Opciones.app" "dist/Valorador de Opciones-macos.zip"
+
+      - name: Publish macOS release
+        if: github.ref_type == 'tag' && startsWith(github.ref_name, 'macos-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: MacOS v0.1
+          files: |
+            dist/Valorador de Opciones.dmg
+            dist/Valorador de Opciones-macos.zip
+
   build-windows:
     runs-on: windows-latest
+    if: github.ref_type != 'tag' || startsWith(github.ref_name, 'windows-v')
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,7 +70,21 @@ jobs:
         run: .\build_windows_exe.bat
 
       - name: Upload Windows artifacts
+        if: github.ref_type != 'tag'
         uses: actions/upload-artifact@v4
         with:
           name: Windows v0.1
           path: dist/Valorador de Opciones
+
+      - name: Archive Windows bundle
+        if: github.ref_type == 'tag' && startsWith(github.ref_name, 'windows-v')
+        shell: powershell
+        run: Compress-Archive -Path 'dist/Valorador de Opciones\*' -DestinationPath 'dist/Valorador de Opciones-windows.zip' -Force
+
+      - name: Publish Windows release
+        if: github.ref_type == 'tag' && startsWith(github.ref_name, 'windows-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Windows v0.1
+          files: dist/Valorador de Opciones-windows.zip
