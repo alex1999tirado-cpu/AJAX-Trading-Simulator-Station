@@ -73,6 +73,93 @@ python3 main.py
 
 If `tkinter` is not available in the current Python environment, the project falls back to a simple console mode.
 
+## Build A macOS App
+
+To make the program installable on macOS as a standalone `.app`, use `PyInstaller`.
+
+Install packaging dependencies:
+
+```bash
+python3 -m pip install -r requirements.txt pyinstaller
+```
+
+Build the application bundle:
+
+```bash
+./build_macos_app.sh
+```
+
+Output:
+
+```text
+dist/Valorador de Opciones.app
+```
+
+If you also want a disk image that you can share more easily:
+
+```bash
+./build_macos_app.sh --dmg
+```
+
+Output:
+
+```text
+dist/Valorador de Opciones.dmg
+```
+
+Notes:
+
+- On another Mac, the user can drag the `.app` to `Applications`.
+- The first launch may show a Gatekeeper warning if the app is unsigned.
+- To distribute it without warnings, you would need to sign and notarize the app with an Apple Developer certificate.
+
+## Build A Windows App
+
+On Windows, install packaging dependencies:
+
+```bash
+python -m pip install -r requirements.txt pyinstaller
+```
+
+Then build the executable:
+
+```bat
+build_windows_exe.bat
+```
+
+Or with PowerShell:
+
+```powershell
+.\build_windows_exe.ps1
+```
+
+Output:
+
+```text
+dist\Valorador de Opciones\Valorador de Opciones.exe
+```
+
+Notes:
+
+- PyInstaller should build the Windows executable on a real Windows environment.
+- Building a native `.exe` from macOS is not the normal supported path.
+- If you want repeatable builds for both systems from one repo, use the included GitHub Actions workflow.
+
+## Automatic Builds With GitHub Actions
+
+The repository includes:
+
+```text
+.github/workflows/build-desktop.yml
+```
+
+It builds:
+
+- `Valorador de Opciones.app` and `Valorador de Opciones.dmg` on macOS
+- `Valorador de Opciones.exe` on Windows
+
+You can launch it manually from GitHub Actions with `workflow_dispatch`, or let it run on pushes to `main`.
+
 ## How It Works
 
 1. Choose an underlying category.
