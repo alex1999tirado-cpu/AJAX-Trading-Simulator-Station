@@ -1,6 +1,6 @@
 # AJAX Options Terminal
 
-**AJAX = Advanced Pricing Analytics eXecution**
+**AJAX = Applied Joint Analytics eXecution**
 
 AJAX is a Python desktop options valuation terminal focused on practical pricing workflows: market snapshot loading, option chain inspection, Greeks, and side-by-side comparison of **Black-Scholes**, **Binomial CRR**, and **Monte Carlo** outputs.
 
