@@ -340,7 +340,7 @@ def build_app() -> "Tk":
 
     tk.Label(
         header,
-        text="AJAX Trading Simulation Station",
+        text="AJAX Options Terminal",
         font=("Menlo", 16, "bold"),
         bg=colors["bg"],
         fg=colors["text"],
