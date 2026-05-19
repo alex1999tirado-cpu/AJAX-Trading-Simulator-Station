@@ -35,7 +35,7 @@ jobs:
         if: github.ref_type != 'tag'
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS v0.1
+          name: macOS AJAX Options Terminal
           path: |
             dist/AJAX Options Terminal.app
             dist/AJAX Options Terminal.dmg
@@ -49,7 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: MacOS v0.1
+          name: ${{ github.ref_name }}
           files: |
             dist/AJAX Options Terminal.dmg
             dist/AJAX Options Terminal-macos.zip
@@ -76,7 +76,7 @@ jobs:
         if: github.ref_type != 'tag'
         uses: actions/upload-artifact@v4
         with:
-          name: Windows v0.1
+          name: Windows AJAX Options Terminal
           path: dist/AJAX Options Terminal
 
       - name: Archive Windows bundle
@@ -89,5 +89,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Windows v0.1
+          name: ${{ github.ref_name }}
           files: dist/AJAX Options Terminal-windows.zip
