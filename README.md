@@ -11,7 +11,7 @@
 
 AJAX Options Terminal is a Python desktop application for options valuation, Greeks analysis and model comparison, integrating market data, option chain inspection and Black-Scholes, Binomial CRR and Monte Carlo pricing engines.
 
-It is designed as a compact derivatives pricing and market data desktop tool for exploring how theoretical option values compare with observable market quotes across different underlyings, expiries and strikes.
+It is designed as a compact derivatives pricing and market data desktop tool for exploring how theoretical option values compare with observable market quotes across different underlyings, expiries and strikes. The project is actively evolving, and some modelling details are still simplified or partially implemented.
 
 ## Preview
 
@@ -23,7 +23,7 @@ Desktop interface preview. Replace `docs/screenshot.png` with a populated market
 
 AJAX Options Terminal provides a desktop workflow for loading market data, inspecting option chains and comparing theoretical option prices against market mid prices. The interface is built around practical pricing tasks: select an underlying, load expiries and strikes, inspect quoted bid/ask/mid data, calculate theoretical values and review Greeks.
 
-The project is suitable for demonstrating Python, derivatives pricing fundamentals, public market data integration and markets automation workflows in a recruiter-friendly portfolio or CV context. It is an educational prototype and research-oriented options valuation terminal; it does not execute orders or manage positions.
+The project is suitable for demonstrating Python, derivatives pricing fundamentals, public market data integration and markets automation workflows in a recruiter-friendly portfolio or CV context. It is an educational prototype and research-oriented options valuation terminal under development; it does not execute orders or manage positions.
 
 ## Key Features
 
@@ -54,7 +54,7 @@ The application calculates all three model outputs and then identifies a primary
 - American-style assets: Binomial CRR is treated as the primary model.
 - Monte Carlo and Black-Scholes outputs remain visible as reference points for comparison.
 
-This setup is intended to make model assumptions transparent rather than hiding alternative valuation methods.
+This setup is intended to make model assumptions transparent rather than hiding alternative valuation methods. The European/American classification is currently heuristic and not a complete exchange-level contract specification engine, so exercise-style handling should be treated as an area for further development.
 
 ## Example Workflow
 
@@ -158,6 +158,7 @@ Developed a Python desktop application for options valuation, Greeks analysis an
 - Option availability depends on Yahoo Finance coverage for each ticker.
 - Risk-free rates are proxy-based and do not represent a full bootstrapped rate curve.
 - Dividend yield and implied volatility inputs are simplified references and may require manual review.
+- The distinction between European-style and American-style options is not fully implemented at contract metadata level; current behaviour uses simplified inference rules.
 - Monte Carlo is implemented as a European reference engine, not a full American early-exercise framework such as Longstaff-Schwartz.
 - The application is intended for education, interview discussion, portfolio demonstration and prototyping.
 - This project does not provide investment advice, trade recommendations, order execution or production valuation controls.
@@ -170,5 +171,6 @@ Developed a Python desktop application for options valuation, Greeks analysis an
 - Add implied volatility inversion by strike and expiry
 - Extend volatility surface and skew visualization
 - Improve currency, rate and dividend input handling
+- Improve exchange-aware contract metadata and European/American exercise-style classification
 - Add unit tests around pricing engines and market data adapters
 - Add more explicit validation for stale or missing option quotes
