@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_NAME="Valorador de Opciones"
+APP_NAME="AJAX Options Terminal"
 SPEC_FILE="${APP_NAME}.spec"
 DIST_DIR="dist"
 BUILD_DIR="build"

@@ -40,7 +40,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name="Valorador de Opciones",
+    name="AJAX Options Terminal",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -56,17 +56,17 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name="Valorador de Opciones",
+    name="AJAX Options Terminal",
 )
 
 app = BUNDLE(
     coll,
-    name="Valorador de Opciones.app",
+    name="AJAX Options Terminal.app",
     icon=None,
-    bundle_identifier="com.alextirado.valoradoropciones",
+    bundle_identifier="com.alextirado.ajaxoptionsterminal",
     info_plist={
-        "CFBundleDisplayName": "Valorador de Opciones",
-        "CFBundleName": "Valorador de Opciones",
+        "CFBundleDisplayName": "AJAX Options Terminal",
+        "CFBundleName": "AJAX Options Terminal",
         "CFBundleShortVersionString": "1.0.0",
         "CFBundleVersion": "1.0.0",
         "NSHighResolutionCapable": True,

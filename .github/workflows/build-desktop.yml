@@ -37,12 +37,12 @@ jobs:
         with:
           name: MacOS v0.1
           path: |
-            dist/Valorador de Opciones.app
-            dist/Valorador de Opciones.dmg
+            dist/AJAX Options Terminal.app
+            dist/AJAX Options Terminal.dmg
 
       - name: Archive macOS bundle
         if: github.ref_type == 'tag' && startsWith(github.ref_name, 'macos-v')
-        run: ditto -c -k --sequesterRsrc --keepParent "dist/Valorador de Opciones.app" "dist/Valorador de Opciones-macos.zip"
+        run: ditto -c -k --sequesterRsrc --keepParent "dist/AJAX Options Terminal.app" "dist/AJAX Options Terminal-macos.zip"
 
       - name: Publish macOS release
         if: github.ref_type == 'tag' && startsWith(github.ref_name, 'macos-v')
@@ -51,8 +51,8 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: MacOS v0.1
           files: |
-            dist/Valorador de Opciones.dmg
-            dist/Valorador de Opciones-macos.zip
+            dist/AJAX Options Terminal.dmg
+            dist/AJAX Options Terminal-macos.zip
 
   build-windows:
     runs-on: windows-latest
@@ -77,12 +77,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Windows v0.1
-          path: dist/Valorador de Opciones
+          path: dist/AJAX Options Terminal
 
       - name: Archive Windows bundle
         if: github.ref_type == 'tag' && startsWith(github.ref_name, 'windows-v')
         shell: powershell
-        run: Compress-Archive -Path 'dist/Valorador de Opciones\*' -DestinationPath 'dist/Valorador de Opciones-windows.zip' -Force
+        run: Compress-Archive -Path 'dist/AJAX Options Terminal\*' -DestinationPath 'dist/AJAX Options Terminal-windows.zip' -Force
 
       - name: Publish Windows release
         if: github.ref_type == 'tag' && startsWith(github.ref_name, 'windows-v')
@@ -90,4 +90,4 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: Windows v0.1
-          files: dist/Valorador de Opciones-windows.zip
+          files: dist/AJAX Options Terminal-windows.zip

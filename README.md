@@ -1,217 +1,174 @@
 # AJAX Options Terminal
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Desktop GUI](https://img.shields.io/badge/Desktop-tkinter-2E7D32)](https://docs.python.org/3/library/tkinter.html)
+[![Market Data](https://img.shields.io/badge/Market%20Data-yfinance-111827)](https://pypi.org/project/yfinance/)
+[![License](https://img.shields.io/badge/License-Educational-lightgrey)](#limitations--disclaimer)
+
 **AJAX = Applied Joint Analytics eXecution**
 
-AJAX is a Python desktop options valuation terminal focused on practical pricing workflows: market snapshot loading, option chain inspection, Greeks, and side-by-side comparison of **Black-Scholes**, **Binomial CRR**, and **Monte Carlo** outputs.
+## Project Summary
 
-The project was built as a compact trading-style interface to explore how theoretical option values compare with market quotes across different underlyings and exercise styles.
+AJAX Options Terminal is a Python desktop application for options valuation, Greeks analysis and model comparison, integrating market data, option chain inspection and Black-Scholes, Binomial CRR and Monte Carlo pricing engines.
 
-## Features
+It is designed as a compact derivatives pricing and market data desktop tool for exploring how theoretical option values compare with observable market quotes across different underlyings, expiries and strikes.
 
-- Dark terminal-style desktop GUI built with `tkinter`
-- Live market snapshot and option chain retrieval through `yfinance`
-- Underlying search with Yahoo-based ticker suggestions
-- Support for multiple underlying categories:
-  - Equities
-  - Indices
-  - ETFs
-  - Commodities proxies
-  - Rates proxies
-  - Benchmarks
-  - FX proxies
-- Automatic loading of:
-  - spot price
-  - dividend yield
-  - implied volatility reference
-  - option expiries and strikes
-  - underlying chart
-- Automatic risk-free rate proxy:
-  - `^TNX` for USD assets
-  - German 10Y proxy for European assets when available
-- Pricing engines:
-  - Black-Scholes
-  - Binomial CRR
-  - Monte Carlo
-- Comparison table between model prices and market mid prices
-- Greeks panel
+## Preview
+
+![AJAX Options Terminal preview](docs/screenshot.png)
+
+Screenshot placeholder: add a clean image of the application interface at `docs/screenshot.png`.
+
+## Overview
+
+AJAX Options Terminal provides a desktop workflow for loading market data, inspecting option chains and comparing theoretical option prices against market mid prices. The interface is built around practical pricing tasks: select an underlying, load expiries and strikes, inspect quoted bid/ask/mid data, calculate theoretical values and review Greeks.
+
+The project is suitable for demonstrating Python, derivatives pricing fundamentals, public market data integration and markets automation workflows in a recruiter-friendly portfolio or CV context. It is an educational prototype and research-oriented options valuation terminal; it does not execute orders or manage positions.
+
+## Key Features
+
+- Python desktop GUI built with `tkinter`
+- Market data and option chain loading through `yfinance`
+- Underlying search with Yahoo Finance ticker suggestions
+- Option chain inspection by expiry and strike
+- Comparison between theoretical prices and market mid prices
+- Black-Scholes, Binomial CRR and Monte Carlo pricing outputs
+- Greeks analysis for options risk sensitivities
+- Pricing error and model comparison outputs
 - In-panel binomial tree view
+- Automatic loading of spot price, dividend yield reference, implied volatility reference, expiries, strikes and underlying chart
+- Risk-free rate proxy selection using public market tickers where available
+- Console fallback when `tkinter` is unavailable
 
-## Pricing Logic
+## Pricing Models
 
-The application computes all three model outputs and then chooses a primary model depending on the inferred exercise style:
+The pricing layer compares several standard option valuation approaches:
 
-- **European-style** assets: `Black-Scholes` is treated as the primary model
-- **American-style** assets: `Binomial` is treated as the primary model
-- `Monte Carlo` and `Black-Scholes` can still be shown as reference proxies for comparison
+- **Black-Scholes**: European option pricing reference model.
+- **Binomial CRR**: Cox-Ross-Rubinstein lattice model used as the primary model for American-style exercise assumptions.
+- **Monte Carlo**: Simulation-based European reference engine for model comparison.
 
-This is intentional: the tool is designed to compare methodologies, not to hide alternative outputs.
+The application calculates all three model outputs and then identifies a primary model based on inferred exercise style:
 
-## Stack
+- European-style assets: Black-Scholes is treated as the primary model.
+- American-style assets: Binomial CRR is treated as the primary model.
+- Monte Carlo and Black-Scholes outputs remain visible as reference points for comparison.
 
-- Python
-- `tkinter`
-- `yfinance`
-- `matplotlib`
+This setup is intended to make model assumptions transparent rather than hiding alternative valuation methods.
+
+## Example Workflow
+
+1. Enter an equity ticker.
+2. Load the underlying market snapshot.
+3. Select an option expiry and strike.
+4. Inspect calls, puts and market mid prices.
+5. Compare Black-Scholes, Binomial CRR and Monte Carlo theoretical values.
+6. Review Greeks, pricing error and sensitivity outputs.
+
+## Tech Stack
+
+- **Language**: Python
+- **Desktop UI**: `tkinter`
+- **Market Data**: `yfinance`
+- **Charts**: `matplotlib`
+- **Packaging**: PyInstaller scripts for macOS and Windows builds
 
 ## Installation
 
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/YOUR_USER/ajax-options-terminal.git
-cd ajax-options-terminal
+git clone https://github.com/alex1999tirado-cpu/AJAX-Trading-Simulator-Station.git
+cd AJAX-Trading-Simulator-Station
 pip install -r requirements.txt
 ```
 
-## Run
+If your system uses `python3`/`pip3`, use:
 
-Launch the GUI with:
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+## Usage
+
+Launch the desktop application:
+
+```bash
+python main.py
+```
+
+On macOS or Linux, depending on your environment:
 
 ```bash
 python3 main.py
 ```
 
-If `tkinter` is not available in the current Python environment, the project falls back to a simple console mode.
-
-## Build A macOS App
-
-To make the program installable on macOS as a standalone `.app`, use `PyInstaller`.
-
-Install packaging dependencies:
-
-```bash
-python3 -m pip install -r requirements.txt pyinstaller
-```
-
-Build the application bundle:
-
-```bash
-./build_macos_app.sh
-```
-
-Output:
-
-```text
-dist/Valorador de Opciones.app
-```
-
-If you also want a disk image that you can share more easily:
-
-```bash
-./build_macos_app.sh --dmg
-```
-
-Output:
-
-```text
-dist/Valorador de Opciones.dmg
-```
-
-Notes:
-
-- On another Mac, the user can drag the `.app` to `Applications`.
-- The first launch may show a Gatekeeper warning if the app is unsigned.
-- To distribute it without warnings, you would need to sign and notarize the app with an Apple Developer certificate.
-
-## Build A Windows App
-
-On Windows, install packaging dependencies:
-
-```bash
-python -m pip install -r requirements.txt pyinstaller
-```
-
-Then build the executable:
-
-```bat
-build_windows_exe.bat
-```
-
-Or with PowerShell:
-
-```powershell
-.\build_windows_exe.ps1
-```
-
-Output:
-
-```text
-dist\Valorador de Opciones\Valorador de Opciones.exe
-```
-
-Notes:
-
-- PyInstaller should build the Windows executable on a real Windows environment.
-- Building a native `.exe` from macOS is not the normal supported path.
-- If you want repeatable builds for both systems from one repo, use the included GitHub Actions workflow.
-
-## Automatic Builds With GitHub Actions
-
-The repository includes:
-
-```text
-.github/workflows/build-desktop.yml
-```
-
-It builds:
-
-- `Valorador de Opciones.app` and `Valorador de Opciones.dmg` on macOS
-- `Valorador de Opciones.exe` on Windows
-
-You can launch it manually from GitHub Actions with `workflow_dispatch`, or let it run on pushes to `main`.
-
-## How It Works
-
-1. Choose an underlying category.
-2. Search or type a ticker.
-3. Load market data and option chain.
-4. Select expiry and strike.
-5. Inspect:
-   - theoretical prices
-   - market mids
-   - pricing errors
-   - Greeks
-   - underlying chart or binomial tree
-
-## Notes and Limitations
-
-- Market data is sourced from `yfinance`, which relies on Yahoo Finance public endpoints and is **not** institutional market data infrastructure.
-- Option availability depends on Yahoo Finance coverage for each ticker.
-- Risk-free rates are proxy-based, not full curve bootstraps.
-- Monte Carlo is implemented as a European reference engine, not a full American early-exercise Monte Carlo framework such as Longstaff-Schwartz.
-- The application is designed as an educational / interview / prototyping tool, not a production trading system.
+If the current Python environment does not include `tkinter`, the project falls back to a simple console mode.
 
 ## Project Structure
 
 ```text
-main.py
-pricer/
-  blackscholes.py
-  binomial.py
-  engine.py
-  marketdata.py
-  montecarlo.py
-requirements.txt
+.
+|-- main.py
+|-- pricer/
+|   |-- blackscholes.py
+|   |-- binomial.py
+|   |-- engine.py
+|   |-- marketdata.py
+|   `-- montecarlo.py
+|-- docs/
+|   `-- README.md
+|-- requirements.txt
+|-- build_macos_app.sh
+|-- build_windows_exe.bat
+|-- build_windows_exe.ps1
+|-- AJAX Options Terminal.spec
+`-- .github/workflows/build-desktop.yml
 ```
 
-## Why This Project
+## Build Desktop Apps
 
-This project was built to turn option pricing theory into a usable interface:
+The repository includes optional packaging scripts for desktop builds.
 
-- compare model outputs against observed market prices
-- reason about European vs American exercise assumptions
-- visualize binomial pricing mechanics
-- connect pricing intuition with real market data
+macOS:
+
+```bash
+python3 -m pip install -r requirements.txt pyinstaller
+./build_macos_app.sh
+```
+
+Windows:
+
+```powershell
+python -m pip install -r requirements.txt pyinstaller
+.\build_windows_exe.ps1
+```
+
+The GitHub Actions workflow at `.github/workflows/build-desktop.yml` can also be used for automated desktop builds.
+
+## CV Description
+
+**AJAX Options Terminal - Derivatives Pricing & Market Data Tool**
+
+Developed a Python desktop application for options valuation, Greeks analysis and model comparison, integrating market data loading, option chain inspection and Black-Scholes, Binomial CRR and Monte Carlo pricing engines.
+
+## Limitations / Disclaimer
+
+- Market data is sourced from `yfinance`, which relies on public Yahoo Finance endpoints and is not institutional market data infrastructure.
+- Option availability depends on Yahoo Finance coverage for each ticker.
+- Risk-free rates are proxy-based and do not represent a full bootstrapped rate curve.
+- Dividend yield and implied volatility inputs are simplified references and may require manual review.
+- Monte Carlo is implemented as a European reference engine, not a full American early-exercise framework such as Longstaff-Schwartz.
+- The application is intended for education, interview discussion, portfolio demonstration and prototyping.
+- This project does not provide investment advice, trade recommendations, order execution or production valuation controls.
 
 ## Future Improvements
 
-- Async market/search loading to avoid UI blocking
-- Better metadata and exchange-aware ticker filtering
-- Full implied volatility workflow by strike
-- Volatility surface tooling
-- Better rate curve selection by currency and maturity
-- Export of pricing runs and screenshots
-
-## Disclaimer
-
-This repository is for educational and demonstration purposes only. It is not investment advice, execution infrastructure, or production-grade valuation software.
+- Add a polished screenshot at `docs/screenshot.png`
+- Improve asynchronous market data loading to reduce UI blocking
+- Add export of pricing runs to CSV or Excel
+- Add implied volatility inversion by strike and expiry
+- Extend volatility surface and skew visualization
+- Improve currency, rate and dividend input handling
+- Add unit tests around pricing engines and market data adapters
+- Add more explicit validation for stale or missing option quotes

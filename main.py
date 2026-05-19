@@ -230,7 +230,7 @@ def run_cli() -> None:
 
 def build_app() -> "Tk":
     root = tk.Tk()
-    root.title("Valorador de opciones")
+    root.title("AJAX Options Terminal")
     left_panel_width = 520
     colors = {
         "bg": "#090909",

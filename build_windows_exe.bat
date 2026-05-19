@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set "APP_NAME=Valorador de Opciones"
+set "APP_NAME=AJAX Options Terminal"
 set "SPEC_FILE=%APP_NAME%.spec"
 
 python --version >nul 2>&1

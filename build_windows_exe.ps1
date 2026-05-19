@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$appName = "Valorador de Opciones"
+$appName = "AJAX Options Terminal"
 $specFile = "$appName.spec"
 
 if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
