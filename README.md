@@ -17,7 +17,7 @@ It is designed as a compact derivatives pricing and market data desktop tool for
 
 ![AJAX Options Terminal preview](docs/screenshot.png)
 
-Screenshot placeholder: add a clean image of the application interface at `docs/screenshot.png`.
+Desktop interface preview. Replace `docs/screenshot.png` with a populated market-data capture when available.
 
 ## Overview
 
@@ -164,7 +164,7 @@ Developed a Python desktop application for options valuation, Greeks analysis an
 
 ## Future Improvements
 
-- Add a polished screenshot at `docs/screenshot.png`
+- Replace the current preview with a populated market-data screenshot
 - Improve asynchronous market data loading to reduce UI blocking
 - Add export of pricing runs to CSV or Excel
 - Add implied volatility inversion by strike and expiry
