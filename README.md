@@ -17,7 +17,6 @@ It is designed as a compact derivatives pricing and market data desktop tool for
 
 ![AJAX Options Terminal preview](docs/screenshot.png)
 
-Desktop interface preview. Replace `docs/screenshot.png` with a populated market-data capture when available.
 
 ## Overview
 
